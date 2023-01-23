@@ -39,6 +39,30 @@ def verif_password(entry):
         else: return 1
     else :return 0
 
+def hash_and_upload(password):
+    def hash(password):
+        hash_object = hashlib.sha256()
+        hash_object.update(password.encode())
+        hex_hash = hash_object.hexdigest()
+        print(hex_hash)
+        return hex_hash
+
+    def fetch_array():
+        import json
+        f = open("password.json", "r")
+        array = f.read()
+        f.close
+        # Retourne un array
+        return json.loads(array)
+    def send_array():
+        hashed_pass = [hash(password)]
+        hashed_pass.extend
+        json
+
+
+
+
+
 while True:
     entry = input("Veuillez entrée un mot de passe contenant au minimum:\n-8 caractères\n-Une lettre minuscule\n-Une "
                   "lettre majuscule\n-Un chiffre\n-un caractère special contenue dans cette liste (!, @, # , $ , "
@@ -55,10 +79,6 @@ while True:
         case 4:
             print("Votre mot de passe ne contient pas de caractères spéciaux, veuillez recommencer")
         case "OK":
-
-            hash_object = hashlib.sha256()
-            hash_object.update(entry.encode())
-            hex_hash = hash_object.hexdigest()
-            print(hex_hash)
+            hash_and_upload(entry)
             break
 
