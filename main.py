@@ -1,28 +1,32 @@
 import hashlib
-def uppercase(entry):
-    for x in entry:
-        if (x.isupper()) == True:
-            return 1
 
-def lowercase(entry):
-    for x in entry:
-        if (x.islower()) == True:
-            return 1
 
-def number(entry):
-    for x in entry:
-        try:
-            int(x)
-            return 1
-        except ValueError:
-            pass
-def special_character(entry):
-    character_list = ("!", "@", "#", "$", "%", "^", "&", "*")
-    for x in entry:
-        for y in character_list:
-            if x == y:
-                return 1
 def verif_password(entry):
+    def uppercase(password):
+        for x in password:
+            if (x.isupper()):
+                return 1
+
+    def lowercase(password):
+        for x in password:
+            if (x.islower()):
+                return 1
+
+    def number(password):
+        for x in password:
+            try:
+                int(x)
+                return 1
+            except ValueError:
+                pass
+
+    def special_character(password):
+        character_list = ("!", "@", "#", "$", "%", "^", "&", "*")
+        for x in password:
+            for y in character_list:
+                if x == y:
+                    return 1
+
     if len(entry)>=8:
         if uppercase(entry) == 1:
             if lowercase(entry) == 1:
@@ -36,10 +40,12 @@ def verif_password(entry):
     else :return 0
 
 while True:
-    entry = input("Veuillez entrée votre mot de passe")
+    entry = input("Veuillez entrée un mot de passe contenant au minimum:\n-8 caractères\n-Une lettre minuscule\n-Une "
+                  "lettre majuscule\n-Un chiffre\n-un caractère special contenue dans cette liste (!, @, # , $ , "
+                  "% , ^ , & , * )\n:")
     match verif_password(entry):
         case 0:
-            print("Votre mot de passe est trop court veuillez recommencer")
+            print("Votre mot de passe est trop court, veuillez recommencer")
         case 1:
             print("Votre mot de passe ne continent pas de majuscule,veuillez recommencer")
         case 2:
@@ -47,12 +53,12 @@ while True:
         case 3:
             print("Votre mot de passe ne contient pas de chiffre, veuillez recommencer")
         case 4:
-            print("Votre mot de passe ne continet pas de caractère spéciaux, veuillez recommencer")
+            print("Votre mot de passe ne contient pas de caractères spéciaux, veuillez recommencer")
         case "OK":
 
             hash_object = hashlib.sha256()
             hash_object.update(entry.encode())
             hex_hash = hash_object.hexdigest()
-
             print(hex_hash)
+            break
 
